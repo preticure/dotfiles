@@ -1,40 +1,176 @@
-# .clang-format configuration file for the project
 
-# 幅の制限（100を超えない）
-ColumnLimit: 99
+#        ________                       ______                          __
+#       / ____/ /___ _____  ____ _     / ____/___  _________ ___  ____ _/ /_
+#      / /   / / __ `/ __ \/ __ `/    / /_  / __ \/ ___/ __ `__ \/ __ `/ __/
+#     / /___/ / /_/ / / / / /_/ /    / __/ / /_/ / /  / / / / / / /_/ / /_
+#     \____/_/\__,_/_/ /_/\__, /    /_/    \____/_/  /_/ /_/ /_/\__,_/\__/
+#                        /____/
+#
 
-# インデントにタブを使用する
-UseTab: Always
-TabWidth: 4
-IndentWidth: 4
-
-# 折り返すときのインデントを揃える
-ContinuationIndentWidth: 4
-
-# コンストラクタ初期化リストのインデントを揃える
-ConstructorInitializerIndentWidth: 4
-
-# 波括弧で改行する
-BreakBeforeBraces: Allman
-
-# 短い波括弧ブロックを1行にまとめない
-AllowShortBlocksOnASingleLine: false
-
-# 波括弧の内側にスペースを入れる
-Cpp11BracedListStyle: false
-
-# 大文字と小文字を区別して、アルファベット順に並べる
-SortIncludes: CaseSensitive
-
-# ポインタの位置を右に揃える
-PointerAlignment: Right
-
-# 折り返し時の引数を縦に揃える
+# This causes parameters on continuations to align to the opening brace.
+#
+#   like_this_long_name(parameter_one,
+#                       parameter_two,
+#                       parameter_three);
+#
 AlignAfterOpenBracket: Align
 
-# 長いパラメータを1行1引数に展開して揃える
+# Align to the right, like this:
+#
+#   struct test demo[] =
+#   {
+#       {56,    23, "hello"},
+#       {-1, 93463, "world"},
+#       { 7,     5,    "!!"}
+#   };
+#
+AlignArrayOfStructures: Right
+
+# Align trailing comments, like this:
+# 
+#   int a;     // comment a
+#   int b = 2; // comment b
+#
+AlignTrailingComments: true
+
+# Align consecutive assignments, like this:
+#
+#   int a   = 1;
+#   int bbb = 2;
+#   int ccc = 3;
+#
+# Instead of:
+#
+#   int a = 1;
+#   int bbb = 2;
+#   int ccc = 3;
+#
+AlignConsecutiveAssignments: Consecutive
+
+# Always break:
+#
+#   const char *foo =
+#       "multi"
+#       "line";
+#
+# Instead of:
+#
+#   const char *foo = "multi"
+#                     "line";
+#
+AlwaysBreakBeforeMultilineStrings: true
+
+# Stack parameters vertically like this:
+#
+#   like_this_long_name(parameter_one,
+#                       parameter_two,
+#                       parameter_three,
+#                       parameter_four,
+#                       parameter_five,
+#                       parameter_six);
+#
+# Instead of:
+#
+#   like_this_long_name(parameter_one, parameter_two, parameter_three, parameter_four,
+#                       parameter_five, parameter_six);
+#
 BinPackArguments: false
 BinPackParameters: false
 
-# 連続代入を整列
-AlignConsecutiveAssignments: Consecutive
+ColumnLimit: 100
+
+# ==============================
+#       Indent Style
+# ==============================
+
+UseTab: Always
+TabWidth: 4
+IndentWidth: 4
+ContinuationIndentWidth: 4
+
+# ==============================
+#         Brace Style
+# ==============================
+
+# The basic style is Allman, but only empty blocks are not wrapped.
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterClass: true
+  AfterControlStatement: Always
+  AfterEnum: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterStruct: true
+  AfterUnion: true
+  AfterExternBlock: true
+  BeforeCatch: true
+  BeforeElse: true
+  BeforeLambdaBody: true
+  BeforeWhile: false
+  IndentBraces: false
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: false
+AllowShortBlocksOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: Empty
+
+# ==============================
+#     Constructor Style
+# ==============================
+
+# Break before the comma, like this:
+#
+#   Constructor()
+#       : initializer1()
+#       , initializer2()
+#       , initializer3()
+#
+BreakConstructorInitializers: BeforeComma
+ConstructorInitializerIndentWidth: 4
+
+# ==============================
+#     Access Modifier Style
+# ==============================
+
+# Right align access modifiers, like this:
+#
+#   class Foo
+#   {
+#   public:
+#       void bar();
+#   private:
+#       int mData;
+#   };
+#
+AccessModifierOffset: -4
+EmptyLineAfterAccessModifier: Never
+EmptyLineBeforeAccessModifier: Never
+
+Cpp11BracedListStyle: false 
+
+# ==============================
+#       Include Sort Order
+# ==============================
+
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex:           '^<[[:alnum:]_]+>'
+    Priority:        1
+    SortPriority:    1
+    CaseSensitive:   false
+  - Regex:           '^<[[:alnum:]_]+\.h>'
+    Priority:        1
+    SortPriority:    2
+    CaseSensitive:   false
+  - Regex:           '^[<"](SDL3|gtest|gmock)/'
+    Priority:        1
+    SortPriority:    3
+    CaseSensitive:   false
+  - Regex:           '.*'
+    Priority:        4
+    CaseSensitive:   false
+
+# Handy comment at the end of each C++ name space.
+FixNamespaceComments: true
+
+PointerAlignment: Right
