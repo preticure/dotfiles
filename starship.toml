@@ -1,6 +1,6 @@
 format = """
 [░▒▓](#ffc9d2)\
-[  ](bg:#ffc9d2 fg:#090c0c)\
+$username\
 [](bg:#ffd2d9 fg:#ffc9d2)\
 $directory\
 [](fg:#ffd2d9 bg:#ffdbe1)\
@@ -17,8 +17,8 @@ right_format = """
 $cmd_duration"""
 
 [character]
-success_symbol = '[❯](bold #ffc9d2) '
-error_symbol = '[❯](bold red) '
+success_symbol = '[❯❯](bold white) '
+error_symbol = '[❯❯](bold red) '
 
 [directory]
 style = "fg:#090c0c bg:#ffd2d9"
@@ -55,3 +55,9 @@ format = '[[  $time ](fg:#ff85a1 bg:#ffedf0)]($style)'
 [cmd_duration]
 style = "#fff6f7"
 format = '[󰚭 $duration ]($style)'
+
+[username]
+show_always = true
+style_user = "bg:#ffc9d2 fg:#090c0c" 
+style = "bg:#ffc9d2 fg:#090c0c"
+format = "[ $user ]($style)"
