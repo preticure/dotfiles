@@ -7,92 +7,26 @@
 #                        /____/
 #
 
-# This causes parameters on continuations to align to the opening brace.
-#
-#   like_this_long_name(parameter_one,
-#                       parameter_two,
-#                       parameter_three);
-#
-AlignAfterOpenBracket: Align
-
-# Align to the right, like this:
-#
-#   struct test demo[] =
-#   {
-#       {56,    23, "hello"},
-#       {-1, 93463, "world"},
-#       { 7,     5,    "!!"}
-#   };
-#
-AlignArrayOfStructures: Right
-
-# Align trailing comments, like this:
-# 
-#   int a;     // comment a
-#   int b = 2; // comment b
-#
-AlignTrailingComments: true
-
-# Align consecutive assignments, like this:
-#
-#   int a   = 1;
-#   int bbb = 2;
-#   int ccc = 3;
-#
-# Instead of:
-#
-#   int a = 1;
-#   int bbb = 2;
-#   int ccc = 3;
-#
-AlignConsecutiveAssignments: Consecutive
-
-# Always break:
-#
-#   const char *foo =
-#       "multi"
-#       "line";
-#
-# Instead of:
-#
-#   const char *foo = "multi"
-#                     "line";
-#
-AlwaysBreakBeforeMultilineStrings: true
-
-# Stack parameters vertically like this:
-#
-#   like_this_long_name(parameter_one,
-#                       parameter_two,
-#                       parameter_three,
-#                       parameter_four,
-#                       parameter_five,
-#                       parameter_six);
-#
-# Instead of:
-#
-#   like_this_long_name(parameter_one, parameter_two, parameter_three, parameter_four,
-#                       parameter_five, parameter_six);
-#
-BinPackArguments: false
-BinPackParameters: false
-
+Language: Cpp
 ColumnLimit: 100
-
-# ==============================
-#       Indent Style
-# ==============================
 
 UseTab: Always
 TabWidth: 4
 IndentWidth: 4
 ContinuationIndentWidth: 4
 
-# ==============================
-#         Brace Style
-# ==============================
+AlignConsecutiveAssignments: Consecutive
+AlignTrailingComments: true
+AlwaysBreakBeforeMultilineStrings: true
 
-# The basic style is Allman, but only empty blocks are not wrapped.
+FixNamespaceComments: true
+NamespaceIndentation: All
+
+InsertNewlineAtEOF: true
+
+# ==============================
+#         Break Style
+# ==============================
 BreakBeforeBraces: Custom
 BraceWrapping:
   AfterClass: true
@@ -112,13 +46,11 @@ BraceWrapping:
   SplitEmptyRecord: false
   SplitEmptyNamespace: false
 AllowShortBlocksOnASingleLine: Empty
-AllowShortFunctionsOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: Inline
 
 # ==============================
-#     Constructor Style
+#   Constructor Initialization 
 # ==============================
-
-# Break before the comma, like this:
 #
 #   Constructor()
 #       : initializer1()
@@ -127,12 +59,46 @@ AllowShortFunctionsOnASingleLine: Empty
 #
 BreakConstructorInitializers: BeforeComma
 ConstructorInitializerIndentWidth: 4
+PackConstructorInitializers: Never
+
+# ==============================
+#      Function Parameters
+# ==============================
+#
+#   void myFunction(int a,
+#                   int b,
+#                   int c,
+#                   int d,
+#                   int e);
+#
+#   callFunction(a,
+#                b,
+#                c,
+#                d);
+#
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
+BinPackArguments: false
+BinPackParameters: false
+
+# ==============================
+#    Braced Initializer Style
+# ==============================
+#
+#   auto s = SomeStruct{
+#     .foo = "foo",
+#     .bar = "bar",
+#     .baz = "baz",
+#   };
+#
+AlignAfterOpenBracket: AlwaysBreak
+BracedInitializerIndentWidth: 2
+AlignArrayOfStructures: None
+Cpp11BracedListStyle: true
 
 # ==============================
 #     Access Modifier Style
 # ==============================
-
-# Right align access modifiers, like this:
 #
 #   class Foo
 #   {
@@ -146,31 +112,44 @@ AccessModifierOffset: -4
 EmptyLineAfterAccessModifier: Never
 EmptyLineBeforeAccessModifier: Never
 
-Cpp11BracedListStyle: false 
+# ==============================
+#         Pointer Style
+# ==============================
+#
+#   int* a;
+#   int& b;
+#
+DerivePointerAlignment: false
+PointerAlignment: Left
+ReferenceAlignment: Pointer
 
 # ==============================
-#       Include Sort Order
+#         Operand Style
 # ==============================
+AlignOperands: Align
+BreakBeforeBinaryOperators: None
 
-IncludeBlocks: Regroup
+# ==============================
+#      Include Sort Order
+# ==============================
+#
+#   1. Main Module Header
+#   2. Local/Private Headers
+#   3. LLVM project/subproject headers
+#   4. External Headers
+#   5. System #includes
+#
+SortIncludes:
+  Enabled: true
+  IgnoreCase: true
+  IgnoreExtension: false
+IncludeBlocks: Merge
 IncludeCategories:
-  - Regex:           '^<[[:alnum:]_]+>'
-    Priority:        1
-    SortPriority:    1
-    CaseSensitive:   false
-  - Regex:           '^<[[:alnum:]_]+\.h>'
-    Priority:        1
-    SortPriority:    2
-    CaseSensitive:   false
-  - Regex:           '^[<"](SDL3|gtest|gmock)/'
-    Priority:        1
-    SortPriority:    3
-    CaseSensitive:   false
-  - Regex:           '.*'
-    Priority:        4
-    CaseSensitive:   false
-
-# Handy comment at the end of each C++ name space.
-FixNamespaceComments: true
-
-PointerAlignment: Right
+  - Regex:           '^"(lldb|llvm|clang)/'
+    SortPriority:        2
+  - Regex:           '^[<](glm|GL|SDL3|SDL3_image/stb)/'
+    SortPriority:        3
+  - Regex:           '^<[[:alnum:].]+>'
+    SortPriority:        4
+  - Regex:           '^"[^/]+'
+    SortPriority:        1
