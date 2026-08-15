@@ -1,0 +1,29 @@
+{
+    "workbench.colorTheme": "poimandres",
+    "editor.bracketPairColorization.enabled": false,
+    "editor.tokenColorCustomizations": {
+        "[poimandres]": {
+            "textMateRules": [
+                {
+                    "scope": "keyword.control",
+                    "settings": {
+                        "foreground": "#ffffff",
+                        "fontStyle": "bold"
+                    }
+                },
+                {
+                    "scope": "keyword.control.directive.include.cpp",
+                    "settings": {
+                        "foreground": "#A6ACCD"
+                    }
+                },
+                {
+                    "scope": "keyword.control.directive.pragma.cpp",
+                    "settings": {
+                        "foreground": "#A6ACCD"
+                    }
+                },
+            ]
+        },
+    },
+}
